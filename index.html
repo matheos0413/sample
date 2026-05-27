@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hi Dian 🥺</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ===================== */
+    /* === CUSTOMIZE HERE == */
+    /* ===================== */
+
+    /* Your name (shown at the end) */
+    /* Search for "YOUR_NAME" below and replace it */
+
+    /* Colors — change these to match your vibe */
+    :root {
+      --pink:       #e75480;
+      --pink-light: #fff0f5;
+      --pink-dark:  #c23d66;
+      --bg:         #fffaf9;
+      --text:       #2a1a1f;
+      --muted:      #9e7a85;
+      --card-bg:    #ffffff;
+      --border:     #f0d6df;
+    }
+
+    /* ===================== */
+    /* ====== BASE ========= */
+    /* ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* Floating hearts background */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        radial-gradient(circle at 20% 30%, #ffd6e740 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, #ffe4ec40 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    #app {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 480px;
+      padding: 2rem 1.5rem;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center;
+    }
+
+    /* ===================== */
+    /* ====== PAGES ======== */
+    /* ===================== */
+    .page { display: none; flex-direction: column; align-items: center; gap: 1.5rem; width: 100%; animation: fadeUp 0.4s ease; }
+    .page.active { display: flex; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ===================== */
+    /* ===== TYPOGRAPHY ==== */
+    /* ===================== */
+    .display {
+      font-family: 'Lora', serif;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text);
+    }
+    .display em { font-style: italic; color: var(--pink); }
+    .body-text { font-size: 1rem; color: var(--muted); line-height: 1.7; }
+    .body-text strong { color: var(--pink); font-weight: 500; }
+    .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+
+    /* ===================== */
+    /* ====== EMOJI ======== */
+    /* ===================== */
+    .big-emoji { font-size: 4.5rem; display: block; animation: bounce 2s infinite ease-in-out; }
+    .rabbit-gif { width: 120px; height: 120px; object-fit: contain; animation: bounce 2s infinite ease-in-out; border-radius: 50%; }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+
+    /* ===================== */
+    /* ====== BUTTONS ====== */
+    /* ===================== */
+    .btn-primary {
+      padding: 14px 40px; font-size: 1rem; font-weight: 500;
+      border-radius: 50px; background: var(--pink); color: white;
+      border: none; cursor: pointer; font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s, transform 0.1s;
+      box-shadow: 0 4px 20px #e7548033;
+    }
+    .btn-primary:hover { background: var(--pink-dark); transform: translateY(-1px); }
+    .btn-primary:active { transform: scale(0.97); }
+
+    #btn-no {
+      padding: 14px 40px; font-size: 1rem; font-weight: 500;
+      border-radius: 50px; background: transparent; color: var(--muted);
+      border: 1.5px solid var(--border); cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      position: fixed; z-index: 200; transition: none;
+      user-select: none; -webkit-user-select: none;
+    }
+
+    .no-hint {
+      font-size: 0.8rem; color: var(--pink); min-height: 1.2rem;
+      font-style: italic;
+    }
+
+    .btn-row { display: flex; gap: 14px; align-items: center; justify-content: center; flex-wrap: wrap; }
+
+    /* ===================== */
+    /* ===== DATE INPUT ==== */
+    /* ===================== */
+    input[type="date"] {
+      width: 100%; padding: 14px 18px; font-size: 1rem;
+      border: 1.5px solid var(--border); border-radius: 14px;
+      background: var(--card-bg); color: var(--text);
+      font-family: 'DM Sans', sans-serif; text-align: center;
+      outline: none; transition: border-color 0.2s;
+    }
+    input[type="date"]:focus { border-color: var(--pink); }
+
+    /* ===================== */
+    /* ===== OPTION GRID === */
+    /* ===================== */
+    .option-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 12px; width: 100%;
+    }
+    .option-grid.three { grid-template-columns: repeat(3, 1fr); }
+
+    .opt-card {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 8px; padding: 18px 10px; border-radius: 18px;
+      border: 2px solid var(--border); background: var(--card-bg);
+      cursor: pointer; transition: all 0.15s ease;
+      font-size: 0.875rem; font-weight: 500; color: var(--text);
+    }
+    .opt-card:hover { border-color: var(--pink); background: var(--pink-light); }
+    .opt-card.selected { border-color: var(--pink); background: var(--pink-light); color: var(--pink); }
+    .opt-card .opt-emoji { font-size: 2rem; }
+
+    /* ===================== */
+    /* ===== SUMMARY ======= */
+    /* ===================== */
+    .summary-card {
+      background: var(--card-bg); border: 1.5px solid var(--border);
+      border-radius: 20px; padding: 1.5rem; width: 100%;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .summary-row {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.9rem;
+    }
+    .summary-row .key { color: var(--muted); }
+    .summary-row .val { font-weight: 500; color: var(--text); }
+
+    /* ===================== */
+    /* ===== CONFETTI ====== */
+    /* ===================== */
+    #confetti-canvas {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      pointer-events:none; z-index:999;
+    }
+
+    /* ===================== */
+    /* ===== DIVIDER ======= */
+    /* ===================== */
+    .divider {
+      width: 40px; height: 2px; background: var(--border);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<div id="app">
+
+  <!-- ==================== -->
+  <!-- PAGE 1: The Ask      -->
+  <!-- ==================== -->
+  <div class="page active" id="p1">
+    <img
+      src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTM3d2E1c2FleGUxY2Z1b3E3NGx0MnhvZ3ZuOTFza2EzMWhyNWR0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/4asRlBKdJaPeBahjcL/giphy.gif"
+      alt="cute rabbit"
+      class="rabbit-gif"
+    />
+    <h1 class="display">Hi <em>Dian!!</em><br>Will you go on a date with me?</h1>
+    <p class="body-text">Just say the word... 💌</p>
+    <div class="btn-row">
+      <button class="btn-primary" onclick="goYes()">Yes 💖</button>
+      <button id="btn-no">No</button>
+    </div>
+    <p class="no-hint" id="no-hint"></p>
+  </div>
+
+  <!-- ==================== -->
+  <!-- PAGE 2: Yes Reaction -->
+  <!-- ==================== -->
+  <div class="page" id="p2">
+    <span class="big-emoji">🥳</span>
+    <h2 class="display"><em>Yesss?</em> That's sweet.</h2>
+    <div class="divider"></div>
+    <p class="body-text">I was ready for you to say <strong>no</strong>...<br>but I'm so glad you didn't! 💖</p>
+    <button class="btn-primary" onclick="goPage('p3')">Continue →</button>
+  </div>
+
+  <!-- ==================== -->
+  <!-- PAGE 3: Date Picker  -->
+  <!-- ==================== -->
+  <div class="page" id="p3">
+    <span class="big-emoji">📅</span>
+    <h2 class="display">Soo... are you free <em>next week?</em></h2>
+    <p class="body-text">Pick a date that works for you!</p>
+    <input type="date" id="date-pick" />
+    <button class="btn-primary" onclick="confirmDate()">That works! 💕</button>
+  </div>
+
+  <!-- ==================== -->
+  <!-- PAGE 4: Activity     -->
+  <!-- ==================== -->
+  <div class="page" id="p4">
+    <span class="big-emoji">🎉</span>
+    <h2 class="display">What do you want <em>to do?</em></h2>
+    <p class="body-text">Pick one for our date!</p>
+    <div class="option-grid" id="activity-grid">
+      <div class="opt-card" onclick="selectOpt(this,'activity','Flowers 🌸')">
+        <span class="opt-emoji">🌸</span> Flowers
+      </div>
+      <div class="opt-card" onclick="selectOpt(this,'activity','Coffee ☕')">
+        <span class="opt-emoji">☕</span> Coffee
+      </div>
+      <div class="opt-card" onclick="selectOpt(this,'activity','Carnival 🎡')">
+        <span class="opt-emoji">🎡</span> Carnival
+      </div>
+      <div class="opt-card" onclick="selectOpt(this,'activity','Indoor Playground 🎮')">
+        <span class="opt-emoji">🎮</span> Indoor Playground
+      </div>
+    </div>
+    <button class="btn-primary" id="btn-activity" style="opacity:0.4;pointer-events:none;" onclick="goPage('p5')">Next →</button>
+  </div>
+
+  <!-- ==================== -->
+  <!-- PAGE 5: Food         -->
+  <!-- ==================== -->
+  <div class="page" id="p5">
+    <span class="big-emoji">🍽️</span>
+    <h2 class="display">And what do you want <em>to eat?</em></h2>
+    <p class="body-text">Most important question of the day 😄</p>
+    <div class="option-grid three" id="food-grid">
+      <div class="opt-card" onclick="selectOpt(this,'food','Pasta 🍝')">
+        <span class="opt-emoji">🍝</span> Pasta
+      </div>
+      <div class="opt-card" onclick="selectOpt(this,'food','Pizza 🍕')">
+        <span class="opt-emoji">🍕</span> Pizza
+      </div>
+      <div class="opt-card" onclick="selectOpt(this,'food','Chicken 🍗')">
+        <span class="opt-emoji">🍗</span> Chicken
+      </div>
+      <div class="opt-card" onclick="selectOpt(this,'food','Burgers 🍔')">
+        <span class="opt-emoji">🍔</span> Burgers
+      </div>
+      <div class="opt-card" onclick="selectOpt(this,'food','Ramen 🍜')">
+        <span class="opt-emoji">🍜</span> Ramen
+      </div>
+      <div class="opt-card" onclick="selectOpt(this,'food','Street Food 🍢')">
+        <span class="opt-emoji">🍢</span> Street Food
+      </div>
+    </div>
+    <button class="btn-primary" id="btn-food" style="opacity:0.4;pointer-events:none;" onclick="goFinal()">Let's go! 🎊</button>
+  </div>
+
+  <!-- ==================== -->
+  <!-- PAGE 6: Final        -->
+  <!-- ==================== -->
+  <div class="page" id="p6">
+    <span class="big-emoji">💌</span>
+    <h2 class="display">It's a <em>date,</em> Dian! 🥰</h2>
+    <div class="summary-card">
+      <div class="summary-row">
+        <span class="key">📅 Date</span>
+        <span class="val" id="sum-date">—</span>
+      </div>
+      <div class="summary-row">
+        <span class="key">🎉 Activity</span>
+        <span class="val" id="sum-activity">—</span>
+      </div>
+      <div class="summary-row">
+        <span class="key">🍽️ Food</span>
+        <span class="val" id="sum-food">—</span>
+      </div>
+    </div>
+    <p class="body-text">Can't wait! See you then 💖<br><br>
+      — from <strong>Matthew </strong> 🌸
+    </p>
+    <!-- ^^^ CHANGE "YOUR_NAME" to your name! -->
+  </div>
+
+</div>
+
+<script>
+  /* =============================== */
+  /* === STATE ===================== */
+  /* =============================== */
+  const state = { date: '', activity: '', food: '' };
+
+  /* =============================== */
+  /* === NO BUTTON RUNS AWAY ======= */
+  /* =============================== */
+  const btnNo  = document.getElementById('btn-no');
+  const hint   = document.getElementById('no-hint');
+  let attempts = 0;
+
+  const noMsgs = [
+    'Huy, wag nyan! 😅',
+    'Sige na please 🥺',
+    'Ano ba yan...',
+    'Di yan ang tamang sagot!',
+    'Subukan mo ulit 😂',
+    'Ayaw ko ng No! 😤',
+    'Please naman... 🥺',
+    'Isipin mo mabuti 😭',
+    'Obvious naman na yes yan eh 😏',
+  ];
+
+  function runAway() {
+    attempts++;
+    hint.textContent = noMsgs[Math.min(attempts - 1, noMsgs.length - 1)];
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const w  = btnNo.offsetWidth  || 100;
+    const h  = btnNo.offsetHeight || 48;
+    btnNo.style.left = Math.random() * (vw - w - 20) + 10 + 'px';
+    btnNo.style.top  = Math.random() * (vh - h - 20) + 10 + 'px';
+  }
+
+  btnNo.addEventListener('mousemove',  runAway);
+  btnNo.addEventListener('touchstart', e => { e.preventDefault(); runAway(); });
+
+  /* Position No button next to Yes on load */
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const yes = document.querySelector('.btn-primary');
+      const r   = yes.getBoundingClientRect();
+      btnNo.style.left = (r.right + 18) + 'px';
+      btnNo.style.top  = r.top + 'px';
+    }, 300);
+
+    /* Set default date to 7 days from now */
+    const today = new Date();
+    document.getElementById('date-pick').min = today.toISOString().split('T')[0];
+    const next = new Date(today);
+    next.setDate(today.getDate() + 7);
+    document.getElementById('date-pick').value = next.toISOString().split('T')[0];
+  });
+
+  /* =============================== */
+  /* === PAGE NAVIGATION =========== */
+  /* =============================== */
+  function goPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function goYes() {
+    btnNo.style.display = 'none';
+    launchConfetti();
+    goPage('p2');
+  }
+
+  function confirmDate() {
+    const val = document.getElementById('date-pick').value;
+    if (!val) return;
+    const d = new Date(val + 'T00:00:00');
+    state.date = d.toLocaleDateString('en-PH', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+    goPage('p4');
+  }
+
+  function selectOpt(el, type, value) {
+    el.closest('.option-grid').querySelectorAll('.opt-card')
+      .forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    state[type] = value;
+    if (type === 'activity') {
+      const b = document.getElementById('btn-activity');
+      b.style.opacity = '1'; b.style.pointerEvents = 'auto';
+    }
+    if (type === 'food') {
+      const b = document.getElementById('btn-food');
+      b.style.opacity = '1'; b.style.pointerEvents = 'auto';
+    }
+  }
+
+  function goFinal() {
+    document.getElementById('sum-date').textContent     = state.date;
+    document.getElementById('sum-activity').textContent = state.activity;
+    document.getElementById('sum-food').textContent     = state.food;
+    goPage('p6');
+    launchConfetti();
+    submitToFormspree();
+  }
+
+  /* =============================== */
+  /* === FORMSPREE SUBMISSION ====== */
+  /* =============================== */
+  function submitToFormspree() {
+    fetch('https://formspree.io/f/xeedpdob', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        subject:   '💖 Dian said YES to a date!',
+        date:      state.date,
+        activity:  state.activity,
+        food:      state.food,
+        message:   'Dian has completed the date proposal! Here are her choices.'
+      })
+    }).catch(() => {});
+  }
+
+  /* =============================== */
+  /* === CONFETTI ================== */
+  /* =============================== */
+  function launchConfetti() {
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx    = canvas.getContext('2d');
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const colors = ['#e75480','#FFD700','#FF69B4','#87CEEB','#98FB98','#FFA07A','#DDA0DD'];
+    const pieces = Array.from({ length: 150 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * -canvas.height,
+      r: Math.random() * 8 + 4,
+      d: Math.random() * 3 + 1.5,
+      color: colors[Math.floor(Math.random() * colors.length)],
+      tilt: Math.random() * 10 - 10,
+      tiltAngle: 0,
+      tiltSpeed: Math.random() * 0.1 + 0.05,
+    }));
+
+    let frame = 0;
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      pieces.forEach(p => {
+        ctx.beginPath();
+        ctx.lineWidth   = p.r / 2;
+        ctx.strokeStyle = p.color;
+        ctx.moveTo(p.x + p.tilt + p.r / 4, p.y);
+        ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 4);
+        ctx.stroke();
+        p.y         += p.d;
+        p.tiltAngle += p.tiltSpeed;
+        p.tilt       = Math.sin(p.tiltAngle) * 12;
+        if (p.y > canvas.height) {
+          p.y = -20;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+      if (++frame < 320) requestAnimationFrame(draw);
+      else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+    draw();
+  }
+</script>
+</body>
+</html>
